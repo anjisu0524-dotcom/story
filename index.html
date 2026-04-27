@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌈 쑥쑥 학교 도서관 📚</title>
+    
+    <!-- Google Fonts: Jua -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>🌈 쑥쑥 학교 도서관 📚</h1>
+        </div>
+        <nav>
+            <button class="nav-btn active" data-target="home"><i class="fa-solid fa-house"></i> 홈</button>
+            <button class="nav-btn" data-target="story"><i class="fa-solid fa-book-open"></i> 스토리</button>
+            <button class="nav-btn" data-target="chatbot"><i class="fa-solid fa-robot"></i> 챗봇</button>
+            <button class="nav-btn" data-target="game"><i class="fa-solid fa-gamepad"></i> 게임</button>
+        </nav>
+    </header>
+
+    <main id="app">
+        <!-- Home Section -->
+        <section id="home" class="page-section active">
+            <div class="welcome-banner">
+                <h2>환영합니다! 재미있는 책의 세계로 떠나볼까요? 🚀</h2>
+                <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=600&auto=format&fit=crop" alt="책과 아이들" class="hero-image">
+                <p>위의 메뉴를 눌러 신나는 <strong>스토리</strong>, 똑똑한 <strong>챗봇</strong> 친구, 그리고 재미있는 <strong>게임</strong>을 즐겨보세요!</p>
+            </div>
+        </section>
+
+        <!-- Story Section -->
+        <section id="story" class="page-section">
+            <h2 class="section-title">📖 재미있는 이야기 속으로!</h2>
+            <div class="card-container">
+                <div class="story-card" onclick="openStory('kongji')">
+                    <div class="card-icon">🐸</div>
+                    <h3>콩쥐 팥쥐</h3>
+                    <p>착한 콩쥐와 심술쟁이 팥쥐의 이야기!</p>
+                </div>
+                <div class="story-card" onclick="openStory('prince')">
+                    <div class="card-icon">👑</div>
+                    <h3>어린 왕자</h3>
+                    <p>별에서 온 어린 왕자의 아름다운 여행!</p>
+                </div>
+            </div>
+            
+            <!-- Story Modal -->
+            <div id="story-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-btn" onclick="closeStory()">&times;</span>
+                    <h2 id="story-title">제목</h2>
+                    <div id="story-body" class="story-content">
+                        이야기 내용
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chatbot Section -->
+        <section id="chatbot" class="page-section">
+            <h2 class="section-title">💬 캐릭터 친구들과 대화해봐요!</h2>
+            
+            <div class="character-selection">
+                <button class="char-btn" onclick="selectCharacter('kongji')">🐸 콩쥐와 대화하기</button>
+                <button class="char-btn" onclick="selectCharacter('prince')">👑 어린왕자와 대화하기</button>
+            </div>
+
+            <div id="chat-window" class="chat-container hidden">
+                <div class="chat-header">
+                    <h3 id="chat-title">누구와 대화할까요?</h3>
+                </div>
+                <div id="chat-messages" class="chat-messages">
+                    <!-- Messages will be generated here -->
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="chat-input" placeholder="여기에 말을 걸어보세요!" onkeypress="handleChatKeyPress(event)">
+                    <button onclick="sendMessage()">보내기 🚀</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Game Section -->
+        <section id="game" class="page-section">
+            <h2 class="section-title">🎮 신나는 게임 시간!</h2>
+            <div class="card-container">
+                <div class="game-card" onclick="openGame('kongji')">
+                    <div class="card-icon">💧</div>
+                    <h3>콩쥐팥쥐 독 채우기</h3>
+                    <p>두꺼비를 클릭해서 구멍 난 독을 막아주세요!</p>
+                </div>
+                <div class="game-card" onclick="openGame('kongji-grain')">
+                    <div class="card-icon">🌾</div>
+                    <h3>콩쥐팥쥐 곡식 고르기</h3>
+                    <p>떨어지는 콩만 빠르게 쏙쏙 골라내요!</p>
+                </div>
+                <div class="game-card" onclick="openGame('prince')">
+                    <div class="card-icon">🃏</div>
+                    <h3>어린왕자 짝맞추기</h3>
+                    <p>같은 그림의 카드를 찾아주세요!</p>
+                </div>
+                <div class="game-card" onclick="openGame('prince-star')">
+                    <div class="card-icon">⭐</div>
+                    <h3>어린왕자 별 잡기</h3>
+                    <p>밤하늘에서 떨어지는 반짝이는 별을 모아요!</p>
+                </div>
+            </div>
+
+            <!-- Game Space -->
+            <div id="game-space" class="game-container hidden">
+                <button class="back-btn" onclick="closeGame()"><i class="fa-solid fa-arrow-left"></i> 뒤로가기</button>
+                <h3 id="game-title">게임 제목</h3>
+                <div id="game-area">
+                    <!-- Game logic injects here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 🌈 쑥쑥 학교 도서관. 모두 모두 환영해요!</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
